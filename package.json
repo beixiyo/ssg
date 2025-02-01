@@ -1,0 +1,46 @@
+{
+  "name": "@jl-org/ssg",
+  "version": "0.0.1",
+  "description": "一键把单页应用转换成静态网站",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "type": "commonjs",
+  "types": "dist/typings/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "exports": {
+    "require": {
+      "types": "./dist/typings/index.d.ts",
+      "default": "./dist/index.cjs"
+    },
+    "import": {
+      "types": "./dist/typings/index.d.ts",
+      "default": "./dist/index.mjs"
+    }
+  },
+  "scripts": {
+    "build": "node esbuild.config.js && tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "html-minifier-terser": "^7.2.0",
+    "tree-kill": "^1.2.2"
+  },
+  "devDependencies": {
+    "@jl-org/ts-tool": "^0.0.8",
+    "@types/html-minifier-terser": "^7.0.2",
+    "@types/node": "^22.13.0",
+    "esbuild": "^0.24.2",
+    "puppeteer-core": "^24.1.1",
+    "typescript": "^5.7.3"
+  },
+  "keywords": [
+    "ssg"
+  ],
+  "author": "CJL <2662442385@qq.com>",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://github.com/beixiyo/ssg"
+}

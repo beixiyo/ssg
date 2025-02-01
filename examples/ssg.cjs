@@ -1,0 +1,1 @@
+const { ssg } = require('@jl-org/ssg')
