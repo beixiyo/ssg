@@ -1,6 +1,7 @@
 import type { Browser } from 'puppeteer-core'
 import { minify, type Options } from 'html-minifier-terser'
 import { writeFileSync } from 'fs'
+const { parse } = require('url')
 
 
 export async function genHtml(
@@ -14,6 +15,8 @@ export async function genHtml(
   }: GenHtmlParams
 ) {
   try {
+    const urlObj = parse(url)
+    const curUrl = `${urlObj.protocol}//${urlObj.host}`
     const page = await browser.newPage()
 
     await page.goto(url, {
@@ -25,7 +28,7 @@ export async function genHtml(
     if (needMinify) {
       html = await minify(html, minifyOptions)
     }
-    html = html.replace(new RegExp(url, 'g'), '')
+    html = html.replace(new RegExp(curUrl, 'g'), '')
 
     writeFileSync(target, html)
     await page.close()
