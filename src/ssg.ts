@@ -14,21 +14,19 @@ export async function ssg(ssgOptions: SSGOptions) {
 
   const browser = await opts.createBrowser()
 
-  opts.ssgPages.forEach((page, index) => {
+  for (let i = 0; i < opts.ssgPages.length; i++) {
+    const page = opts.ssgPages[i]
     const params: GenHtmlParams = {
       url: page.url,
       target: page.target,
       needMinify: opts.needMinify,
       minifyOptions: opts.minifyOptions,
       browser,
-      kill: index === opts.ssgPages.length - 1
-        ? () => {
-          browser.close()
-          killProcess()
-        }
+      kill: i === opts.ssgPages.length - 1
+        ? killProcess
         : () => { },
     }
 
-    genHtml(params)
-  })
+    await genHtml(params)
+  }
 }
