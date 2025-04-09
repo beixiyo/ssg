@@ -5,17 +5,13 @@
 ## 安装
 
 ```bash
-npm i @jl-org/ssg -D
+npm i @jl-org/ssg puppeteer-core -D
 ```
 
 
 ## 快速上手
 
-```bash
-touch scripts/ssg.cjs
-node scripts/ssg.cjs
-```
-
+1. **生成静态 HTML**
 `scripts/ssg.cjs`
 ```js
 const path = require('node:path')
@@ -49,7 +45,7 @@ async function main() {
         target: path.resolve(__dirname, '../dist/pricing.html')
       },
       {
-        url: `http://localhost:${PORT}/company/about`,
+        url: `http://localhost:${PORT}/about`,
         target: path.resolve(__dirname, '../dist/about.html')
       },
     ]
@@ -57,6 +53,32 @@ async function main() {
 
   process.exit(0)
 }
+```
+
+2. **修改 Nginx 配置，并且重启服务**
+```nginx
+server {
+  listen 80;
+  server_name yourdomain.com;
+
+  # pages
+  location /pricing {
+    root /Your_Root_Dir;
+    index pricing.html;
+    try_files $uri $uri/ /pricing.html;
+  }
+  location /about {
+    root /Your_Root_Dir;
+    index about.html;
+    try_files $uri $uri/ /about.html;
+  }
+}
+```
+
+3. **测试生效**
+```bash
+# 查看返回内容，是否为整个 HTML
+curl http://yourdomain.com/pricing
 ```
 
 ---
