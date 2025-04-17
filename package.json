@@ -1,6 +1,6 @@
 {
   "name": "@jl-org/ssg",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "一键把单页应用转换成静态网站",
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",

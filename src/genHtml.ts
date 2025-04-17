@@ -33,7 +33,7 @@ export async function genHtml(
     writeFileSync(target, html)
     await page.close()
 
-    console.log('SSG 成功')
+    console.log(`${url} SSG 成功`)
   }
   catch (error) {
     console.error(error)
